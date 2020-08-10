@@ -55,7 +55,7 @@ pipeline{
 		stage ("Deploy Testing") {
 			steps {
 				script {
-					tagImage(CLUSTER_NAME, ENV_TEST 'testing')
+					tagImage(CLUSTER_NAME, ENV_TEST, 'testing')
 				}
 			}
 		}
