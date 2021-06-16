@@ -17,13 +17,13 @@ def tagImage(cluster_name, env_name, action) {
 		openshift.withProject( env_name ) {
 			if (action == 'testing') {
 				echo "Tag image from development to testing."
-				openshift.tag("development/hellopythonapp:latest", "testing/hellopythonapp:test")
+				openshift.tag("development/hellopythonapp:latest", "testing/hellopythonapp:latest")
 				def dc = openshift.selector('dc', "hellopythonapp")
 				dc.rollout().status()
 			}
 			if (action == 'production') {
 				echo "Tag image from testing to production."
-				openshift.tag("testing/hellopythonapp:test", "production/hellopythonapp:prod")
+				openshift.tag("testing/hellopythonapp:latest", "production/hellopythonapp:latest")
 				def dc = openshift.selector('dc', "hellopythonapp")
 				dc.rollout().status()
 			}
