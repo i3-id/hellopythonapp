@@ -3,10 +3,10 @@ def buildImage(cluster_name, env_name) {
 		openshift.withProject( env_name ) {
 			echo "Building Image Stream from hellopythonapp"
 			
-			def result = openshift.selector("bc", "hellopythonapp-git-dev").startBuild("--follow")
+			def result = openshift.selector("bc", "hellopythonapp-git").startBuild("--follow")
 			echo "Build result: ${result.status}"
 			
-			def dc = openshift.selector('dc', "hellopythonapp-git-dev")
+			def dc = openshift.selector('dc', "hellopythonapp-git")
 			dc.rollout().status()
 		}
 	}
@@ -17,13 +17,13 @@ def tagImage(cluster_name, env_name, action) {
 		openshift.withProject( env_name ) {
 			if (action == 'testing') {
 				echo "Tag image from development to testing."
-				openshift.tag("hellopythonapp-git-dev:latest", "hellopythonapp-git-staging:latest")
+				openshift.tag("hellopythonapp-git:latest", "hellopythonapp-git-staging:latest")
 				def dc = openshift.selector('dc', "hellopythonapp")
 				dc.rollout().status()
 			}
 			if (action == 'production') {
 				echo "Tag image from testing to production."
-				openshift.tag("hellopythonapp-git-staging:latest", "hellopythonapp-git:latest")
+				openshift.tag("hellopythonapp-git-staging:latest", "hellopythonapp-git-prod:latest")
 				def dc = openshift.selector('dc', "hellopythonapp")
 				dc.rollout().status()
 			}
