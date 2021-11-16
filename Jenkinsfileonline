@@ -35,7 +35,7 @@ pipeline{
 	agent any
 	environment{
 		def CLUSTER_NAME = "openshift-4.3"
-		def ENV_DEV = "dickyford-stage"
+		def ENV_DEV = "dickyford-dev"
 		def ENV_TEST = "dickyford-stage"
 		def ENV_PROD = "dickyford-stage"
 	}
